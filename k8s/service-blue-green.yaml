@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommerce-app-service
+  labels:
+    app: ecommerce-app
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: ecommerce-app
+    color: blue  # Initially points to blue deployment
+---
+# Preview service for testing green deployment before switching
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommerce-app-preview
+  labels:
+    app: ecommerce-app
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: ecommerce-app
+    color: green
+---
+# LoadBalancer service for external access (optional)
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommerce-app-lb
+  labels:
+    app: ecommerce-app
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: ecommerce-app
+    color: blue  # Initially points to blue

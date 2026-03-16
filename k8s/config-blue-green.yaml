@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blue-green-config
+  labels:
+    app: ecommerce-app
+data:
+  # Blue-Green deployment configuration
+  active-color: "blue"
+  preview-enabled: "true"
+  validation-endpoint: "/health"
+  readiness-check-interval: "30"
+  max-deployment-time: "600"
+
+  # Traffic switching configuration
+  traffic-switch-timeout: "60"
+  rollback-on-failure: "true"
+  health-check-retries: "3"
+
+  # Monitoring configuration
+  metrics-enabled: "true"
+  log-level: "info"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deployment-versions
+  labels:
+    app: ecommerce-app
+data:
+  blue-version: "v1.0.0"
+  green-version: "v1.0.0"
+  last-deployment: ""
+  last-rollback: ""
+---
+# Pod Disruption Budget for blue-green deployments
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ecommerce-app-pdb
+  labels:
+    app: ecommerce-app
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: ecommerce-app
