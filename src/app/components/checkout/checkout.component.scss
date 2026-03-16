@@ -1,0 +1,344 @@
+.checkout-page {
+  padding: 20px 0;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+
+  .success-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+    .success-content {
+      background: white;
+      padding: 60px 40px;
+      border-radius: 8px;
+      text-align: center;
+      animation: slideUp 0.5s ease;
+
+      i {
+        font-size: 80px;
+        color: #388e3c;
+        display: block;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        color: #212121;
+        margin-bottom: 10px;
+      }
+
+      p {
+        color: #999;
+      }
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .checkout-content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+
+      span:first-child {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #e0e0e0;
+        color: #999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-bottom: 5px;
+        transition: all 0.3s;
+      }
+
+      span:last-child {
+        font-size: 12px;
+        color: #999;
+        transition: color 0.3s;
+      }
+
+      &.active {
+        span:first-child {
+          background: #ff9900;
+          color: white;
+        }
+
+        span:last-child {
+          color: #212121;
+          font-weight: 500;
+        }
+      }
+
+      &.completed {
+        span:first-child {
+          background: #388e3c;
+          color: white;
+
+          &::after {
+            content: '✓';
+            display: block;
+          }
+        }
+      }
+    }
+
+    .step-line {
+      width: 50px;
+      height: 2px;
+      background: #e0e0e0;
+      margin: 0 20px;
+      transition: background 0.3s;
+
+      &.active {
+        background: #388e3c;
+      }
+    }
+  }
+
+  .form-content {
+    background: white;
+    padding: 30px;
+    border-radius: 4px;
+
+    @media (max-width: 768px) {
+      padding: 20px;
+    }
+
+    .form-section {
+      h2 {
+        margin-bottom: 25px;
+        color: #212121;
+      }
+    }
+
+    .form-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+
+      &:has(textarea) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-input {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+
+      &:focus {
+        outline: none;
+        border-color: #ff9900;
+        box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.1);
+      }
+
+      &:disabled {
+        background: #f5f5f5;
+        color: #999;
+      }
+
+      &::placeholder {
+        color: #999;
+      }
+    }
+
+    .payment-note {
+      background: #e8f5e9;
+      padding: 12px 15px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #388e3c;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      i {
+        flex-shrink: 0;
+      }
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+
+      @media (max-width: 768px) {
+        flex-direction: column-reverse;
+      }
+
+      button {
+        flex: 1;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+    }
+
+    .btn-next,
+    .btn-submit {
+      background: #ff9900;
+      color: white;
+
+      &:hover {
+        background: #e58a00;
+      }
+    }
+
+    .btn-back {
+      background: white;
+      border: 1px solid #ddd;
+      color: #0066c0;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+  }
+
+  .order-summary-sidebar {
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+
+    @media (max-width: 768px) {
+      position: relative;
+      top: 0;
+      margin-top: 20px;
+    }
+
+    h3 {
+      margin: 0 0 15px 0;
+      color: #212121;
+    }
+
+    .summary-items {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 13px;
+
+      .item-info {
+        display: flex;
+        gap: 10px;
+        flex: 1;
+
+        img {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          border-radius: 4px;
+        }
+
+        .item-name {
+          margin: 0;
+          color: #212121;
+          font-weight: 500;
+          line-height: 1.2;
+        }
+
+        .item-qty {
+          margin: 5px 0 0 0;
+          color: #999;
+        }
+      }
+
+      .item-price {
+        font-weight: bold;
+        color: #212121;
+      }
+    }
+
+    .summary-divider {
+      height: 1px;
+      background: #e0e0e0;
+      margin: 15px 0;
+    }
+
+    .summary-totals {
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 13px;
+
+        .free {
+          color: #388e3c;
+          font-weight: 500;
+        }
+      }
+
+      .summary-row.total {
+        border-top: 2px solid #e0e0e0;
+        padding-top: 8px;
+        font-weight: bold;
+        font-size: 15px;
+        color: #212121;
+      }
+    }
+  }
+}

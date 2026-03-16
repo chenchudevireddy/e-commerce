@@ -1,0 +1,138 @@
+<div class="product-listing">
+  <div class="container">
+    <div class="listing-wrapper">
+      <!-- Sidebar Filters -->
+      <aside class="sidebar">
+        <div class="filter-section">
+          <h3>Categories</h3>
+          <div class="category-filter">
+            <button
+              [class.active]="selectedCategory === ''"
+              (click)="filterByCategory('')"
+              class="category-btn"
+            >
+              All Products
+            </button>
+            <button
+              *ngFor="let category of categories"
+              [class.active]="selectedCategory === category"
+              (click)="filterByCategory(category)"
+              class="category-btn"
+            >
+              {{ category }}
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <h3>Price Range</h3>
+          <div class="price-info">
+            <p>Min: ₹0 | Max: ₹200000</p>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <h3>Rating</h3>
+          <div class="rating-filter">
+            <label>
+              <input type="checkbox" /> 4★ & above
+            </label>
+            <label>
+              <input type="checkbox" /> 3★ & above
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+          <div class="results-info">
+            <h2>Products</h2>
+            <p *ngIf="filteredProducts.length > 0">
+              Showing {{ filteredProducts.length }} products
+            </p>
+          </div>
+
+          <div class="sort-options">
+            <label for="sort">Sort by:</label>
+            <select
+              id="sort"
+              [(ngModel)]="sortBy"
+              (change)="onSortChange()"
+              class="sort-select"
+            >
+              <option value="relevance">Relevance</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Rating</option>
+              <option value="discount">Discount</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="products-grid" *ngIf="filteredProducts.length > 0">
+          <div
+            class="product-card"
+            *ngFor="let product of filteredProducts"
+            (click)="viewProduct(product)"
+          >
+            <!-- Product Image -->
+            <div class="product-image">
+              <img [src]="product.image" [alt]="product.name" />
+              <div class="discount-badge" *ngIf="product.discount > 0">
+                -{{ product.discount }}%
+              </div>
+              <div class="stock-badge" *ngIf="!product.inStock">Out of Stock</div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+              <h3 class="product-name">{{ product.name }}</h3>
+
+              <!-- Rating -->
+              <div class="rating">
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <span class="rating-value">{{ product.rating }}</span>
+                </div>
+                <span class="reviews">({{ product.reviews }} reviews)</span>
+              </div>
+
+              <!-- Pricing -->
+              <div class="pricing">
+                <span class="current-price">₹{{ product.price }}</span>
+                <span class="original-price">₹{{ product.originalPrice }}</span>
+              </div>
+
+              <!-- Delivery Info -->
+              <div class="delivery-info">
+                <i class="fas fa-truck"></i>
+                <span>Free delivery in {{ product.deliveryDays }} day(s)</span>
+              </div>
+
+              <!-- Add to Cart Button -->
+              <button
+                class="add-to-cart-btn"
+                (click)="addToCart(product, $event)"
+                [disabled]="!product.inStock"
+              >
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Products Found -->
+        <div class="no-products" *ngIf="filteredProducts.length === 0">
+          <i class="fas fa-inbox"></i>
+          <h2>No Products Found</h2>
+          <p>Try adjusting your filters or search criteria</p>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

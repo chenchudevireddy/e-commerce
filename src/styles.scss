@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+app-root {
+  display: block;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  color: #212121;
+}
+
+a {
+  color: #0066c0;
+  text-decoration: none;
+  cursor: pointer;
+  
+  &:hover {
+    color: #c7511f;
+  }
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Common Utilities */
+.btn-primary {
+  background-color: #ff9900;
+  color: white;
+  
+  &:hover {
+    background-color: #e58a00;
+  }
+}
+
+.btn-secondary {
+  background-color: #37475a;
+  color: white;
+  
+  &:hover {
+    background-color: #253544;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+/* Scroller */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+  
+  &:hover {
+    background: #555;
+  }
+}

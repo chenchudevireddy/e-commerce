@@ -1,0 +1,34 @@
+<header class="header">
+  <div class="header-top">
+    <div class="container">
+      <div class="header-content">
+        <!-- Logo -->
+        <div class="logo" (click)="navigateHome()">
+          <i class="fas fa-shopping-bag"></i>
+          <span>ShopHub</span>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Search for products, brands, and more..."
+            [(ngModel)]="searchQuery"
+            (keyup.enter)="searchProducts()"
+          />
+          <button (click)="searchProducts()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+
+        <!-- Cart Icon -->
+        <div class="header-actions">
+          <div class="cart-icon" (click)="navigateToCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

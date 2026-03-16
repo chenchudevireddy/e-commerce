@@ -1,0 +1,105 @@
+<div class="home-page">
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="banner-content">
+      <h1>Welcome to ShopHub</h1>
+      <p>Your one-stop destination for quality products</p>
+      <button (click)="viewAllProducts()" class="cta-button">
+        <i class="fas fa-shopping-bag"></i>
+        Start Shopping
+      </button>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="container">
+      <h2>Shop by Category</h2>
+      <div class="categories-grid">
+        <div
+          class="category-card"
+          *ngFor="let category of categories"
+          (click)="browseCategory(category)"
+        >
+          <div class="category-icon">
+            <i [ngClass]="getCategoryIcon(category)"></i>
+          </div>
+          <h3>{{ category }}</h3>
+          <p>View All</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Top Rated Products</h2>
+        <button (click)="viewAllProducts()" class="view-all-btn">
+          View All <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="products-grid">
+        <div
+          class="product-card"
+          *ngFor="let product of featuredProducts"
+          (click)="viewProduct(product)"
+        >
+          <div class="product-image">
+            <img [src]="product.image" [alt]="product.name" />
+            <div class="discount-badge">-{{ product.discount }}%</div>
+          </div>
+
+          <div class="product-info">
+            <h3>{{ product.name }}</h3>
+
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <span>{{ product.rating }} ({{ product.reviews }})</span>
+            </div>
+
+            <div class="pricing">
+              <span class="price">₹{{ product.price }}</span>
+              <span class="original">₹{{ product.originalPrice }}</span>
+            </div>
+
+            <div class="delivery">
+              <i class="fas fa-truck"></i>
+              <span>Free delivery in {{ product.deliveryDays }} day(s)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits-section">
+    <div class="container">
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <i class="fas fa-shipping-fast"></i>
+          <h3>Fast Delivery</h3>
+          <p>Get your products delivered quickly to your doorstep</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Secure Payment</h3>
+          <p>Your payment information is completely safe and secure</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-undo"></i>
+          <h3>Easy Returns</h3>
+          <p>Hassle-free returns within 30 days of purchase</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-headset"></i>
+          <h3>24/7 Support</h3>
+          <p>Our customer support team is always ready to help</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

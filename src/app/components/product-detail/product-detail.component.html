@@ -1,0 +1,153 @@
+<div class="product-detail" *ngIf="product">
+  <div class="container">
+    <!-- Back Button -->
+    <div class="back-button">
+      <button (click)="goBack()">
+        <i class="fas fa-arrow-left"></i>
+        Back to Products
+      </button>
+    </div>
+
+    <!-- Main Product Section -->
+    <div class="product-section">
+      <!-- Product Images -->
+      <div class="product-images">
+        <div class="main-image">
+          <img [src]="product.image" [alt]="product.name" />
+          <div class="discount-badge" *ngIf="product.discount > 0">
+            -{{ product.discount }}%
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Details -->
+      <div class="product-details">
+        <!-- Title and Rating -->
+        <div>
+          <h1 class="product-title">{{ product.name }}</h1>
+
+          <div class="rating-section">
+            <div class="rating">
+              <div class="stars">
+                <i
+                  *ngFor="let star of getStarArray(product.rating)"
+                  [ngClass]="{ 'fas fa-star': star, 'far fa-star': !star }"
+                ></i>
+              </div>
+              <span class="rating-value">{{ product.rating }} out of 5</span>
+            </div>
+            <span class="reviews">{{ product.reviews }} reviews</span>
+          </div>
+        </div>
+
+        <!-- Pricing -->
+        <div class="pricing-section">
+          <div class="prices">
+            <span class="current-price">₹{{ product.price }}</span>
+            <span class="original-price">M.R.P.: ₹{{ product.originalPrice }}</span>
+            <span class="discount-percentage">{{ product.discount }}% off</span>
+          </div>
+          <p class="inclusive-tax">Inclusive of all taxes</p>
+        </div>
+
+        <!-- Delivery and Stock -->
+        <div class="delivery-section">
+          <div class="delivery-info" *ngIf="product.inStock">
+            <i class="fas fa-truck"></i>
+            <div>
+              <p>Usually delivered in {{ product.deliveryDays }} day(s)</p>
+              <span class="free-delivery">FREE DELIVERY</span>
+            </div>
+          </div>
+          <div class="stock-status" [ngClass]="{ 'in-stock': product.inStock, 'out-of-stock': !product.inStock }">
+            <i [ngClass]="{ 'fas fa-check-circle': product.inStock, 'fas fa-times-circle': !product.inStock }"></i>
+            {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+          </div>
+        </div>
+
+        <!-- Product Description -->
+        <div class="description-section">
+          <h3>About this product</h3>
+          <p>{{ product.description }}</p>
+        </div>
+
+        <!-- Quantity Selector and Add to Cart -->
+        <div class="action-section">
+          <div class="quantity-selector">
+            <label for="quantity">Quantity:</label>
+            <div class="qty-controls">
+              <button (click)="decreaseQuantity()" [disabled]="quantity <= 1">−</button>
+              <input
+                id="quantity"
+                type="number"
+                [(ngModel)]="quantity"
+                min="1"
+                readonly
+              />
+              <button (click)="increaseQuantity()">+</button>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button
+              class="add-to-cart-btn"
+              (click)="addToCart()"
+              [disabled]="!product.inStock"
+            >
+              <i class="fas fa-shopping-cart"></i>
+              Add to Cart
+            </button>
+            <button class="buy-now-btn" [disabled]="!product.inStock">
+              <i class="fas fa-bolt"></i>
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="related-products" *ngIf="relatedProducts.length > 0">
+      <h2>Related Products</h2>
+      <div class="products-grid">
+        <div
+          class="product-card"
+          *ngFor="let relProduct of relatedProducts"
+          (click)="viewRelatedProduct(relProduct)"
+        >
+          <div class="product-image">
+            <img [src]="relProduct.image" [alt]="relProduct.name" />
+            <div class="discount-badge" *ngIf="relProduct.discount > 0">
+              -{{ relProduct.discount }}%
+            </div>
+          </div>
+          <div class="product-info">
+            <h4>{{ relProduct.name }}</h4>
+            <div class="pricing">
+              <span class="price">₹{{ relProduct.price }}</span>
+              <span class="original">₹{{ relProduct.originalPrice }}</span>
+            </div>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <span>{{ relProduct.rating }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Product Not Found -->
+<div class="product-not-found" *ngIf="!product">
+  <div class="container">
+    <div class="placeholder">
+      <i class="fas fa-inbox"></i>
+      <h2>Product Not Found</h2>
+      <p>The product you're looking for doesn't exist.</p>
+      <button (click)="goBack()" class="btn-primary">
+        Back to Products
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<div class="cart-page">
+  <div class="container">
+    <div class="cart-header">
+      <h1>Shopping Cart</h1>
+      <p *ngIf="cartItems.length > 0">{{ cartItems.length }} item(s) in your cart</p>
+      <p *ngIf="cartItems.length === 0">Your cart is empty</p>
+    </div>
+
+    <!-- Empty Cart Message -->
+    <div class="empty-cart" *ngIf="cartItems.length === 0">
+      <i class="fas fa-shopping-cart"></i>
+      <h2>Your Cart is Empty</h2>
+      <p>Add some products to get started</p>
+      <button class="btn-primary" (click)="continueShopping()">
+        Continue Shopping
+      </button>
+    </div>
+
+    <!-- Cart Items -->
+    <div class="cart-content" *ngIf="cartItems.length > 0">
+      <div class="cart-items">
+        <div class="cart-item" *ngFor="let item of cartItems">
+          <div class="item-image">
+            <img [src]="item.product.image" [alt]="item.product.name" />
+          </div>
+
+          <div class="item-details">
+            <h3>{{ item.product.name }}</h3>
+            <p class="category">{{ item.product.category }}</p>
+            <div class="item-rating">
+              <i class="fas fa-star"></i>
+              <span>{{ item.product.rating }} ({{ item.product.reviews }} reviews)</span>
+            </div>
+          </div>
+
+          <div class="item-pricing">
+            <div class="price-info">
+              <span class="current-price">₹{{ item.product.price }}</span>
+              <span class="original-price">₹{{ item.product.originalPrice }}</span>
+            </div>
+            <div class="discount">
+              <span>{{ item.product.discount }}% off</span>
+            </div>
+          </div>
+
+          <div class="item-quantity">
+            <label for="qty-{{ item.product.id }}">Qty:</label>
+            <div class="qty-controls">
+              <button
+                (click)="updateQuantity(item, item.quantity - 1)"
+                [disabled]="item.quantity <= 1"
+              >
+                −
+              </button>
+              <input
+                [id]="'qty-' + item.product.id"
+                type="number"
+                [(ngModel)]="item.quantity"
+                (change)="updateQuantity(item, item.quantity)"
+                min="1"
+                readonly
+              />
+              <button (click)="updateQuantity(item, item.quantity + 1)">+</button>
+            </div>
+          </div>
+
+          <div class="item-total">
+            <span class="total-price">₹{{ item.product.price * item.quantity }}</span>
+          </div>
+
+          <button class="remove-btn" (click)="removeItem(item.product.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <h2>Order Summary</h2>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>₹{{ cartTotal }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Discount</span>
+          <span class="discount-amount">-₹{{ getTotalDiscount() }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Delivery Charge</span>
+          <span [ngClass]="{ 'free': getDeliveryCharge() === 0 }">
+            {{ getDeliveryCharge() === 0 ? 'FREE' : '₹' + getDeliveryCharge() }}
+          </span>
+        </div>
+
+        <div class="summary-row total">
+          <span>Total Amount</span>
+          <span>₹{{ getFinalTotal() }}</span>
+        </div>
+
+        <p class="summary-note">
+          <i class="fas fa-info-circle"></i>
+          Free delivery on orders above ₹500
+        </p>
+
+        <button class="checkout-btn" (click)="checkout()">
+          Proceed to Checkout
+        </button>
+
+        <button class="continue-shopping-btn" (click)="continueShopping()">
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

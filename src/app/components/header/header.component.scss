@@ -1,0 +1,137 @@
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  .header-top {
+    padding: 15px 0;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    i {
+      font-size: 28px;
+    }
+
+    span {
+      white-space: nowrap;
+    }
+  }
+
+  .search-bar {
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    gap: 10px;
+
+    input {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      outline: none;
+
+      &::placeholder {
+        color: #999;
+      }
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #ff9900;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #e58a00;
+      }
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cart-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 24px;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #ff6b6b;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    gap: 10px !important;
+    flex-wrap: wrap;
+  }
+
+  .search-bar {
+    order: 3;
+    width: 100%;
+    max-width: 100% !important;
+
+    input {
+      font-size: 12px;
+      padding: 8px 10px;
+    }
+  }
+
+  .logo {
+    font-size: 18px;
+
+    i {
+      font-size: 20px;
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
